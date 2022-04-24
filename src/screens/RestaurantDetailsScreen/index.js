@@ -8,6 +8,7 @@ const RestaurantDetailsScreen = ({props}) => {
     const navigation = props.navigation;
     const route = props.route;
     const id = route.params?.id
+    console.info("Params => ", id);
 
     return (
         <View style={styles.pageContainer}>
