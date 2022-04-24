@@ -1,0 +1,48 @@
+[
+  {
+    "id": "1",
+    "name": "El Power Coffee Bar Tres De Foris",
+    "deliveryFee": 1.4,
+    "minCollectionTime": "2022-04-12T15:30:00+00:00",
+    "maxCollectionTime": "2022-04-12T17:30:00+00:00",
+    "rating": 4.0,
+    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant1.jpeg",
+    "boxes": {
+      "available": 6,
+      "name": "Morning Bag",
+      "description": "Pasty Shop is a desire for hot food or a love of pasties",
+      "price": 5
+    }
+  },
+  {
+    "id": "2",
+    "name": "Tony Roma's - C.C. Sketchy",
+    "deliveryFee": 0.4,
+    "minCollectionTime": "2022-04-12T15:30:00+00:00",
+    "maxCollectionTime": "2022-04-12T17:30:00+00:00",
+    "rating": 4.7,
+    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant2.jpeg",
+    "boxes": {
+      "available": 3,
+      "name": "Morning Bag",
+      "description": "Pasty Shop is a desire for hot food or a love of pasties",
+      "price": 5
+    }
+  },
+  {
+    "id": "3",
+    "name": "Los Polos Hermanos",
+    "deliveryFee": 2,
+    "minCollectionTime": "2022-04-12T15:30:00+00:00",
+    "maxCollectionTime": "2022-04-12T17:30:00+00:00",
+    "rating": 4.5,
+    "image": "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/uber-eats/restaurant2.jpeg",
+    "boxes": {
+      "available": 2,
+      "name": "Morning Bag",
+      "description": "Pasty Shop is a desire for hot food or a love of pasties",
+      "price": 3
+    }
+  }
+]
+
