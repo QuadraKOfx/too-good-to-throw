@@ -1,6 +1,6 @@
-import {View, Text, Image, FlatList, StyleSheet} from "react-native";
+import {View, Text, Image, FlatList, StyleSheet, Pressable} from "react-native";
 import restaurants from "../../../assets/data/restaurants.json";
-import {Ionicons} from "@expo/vector-icons";
+import {FontAwesome, Ionicons, SimpleLineIcons} from "@expo/vector-icons";
 
 const restaurant = restaurants[0];
 
@@ -9,6 +9,11 @@ const RestaurantDetailsScreen = ({props}) => {
     const route = props.route;
     const id = route.params?.id
     console.info("Params => ", id);
+
+    const onReserve = (event) => {
+        event.preventDefault();
+        console.info("Proccessing Request Reservation");
+    }
 
     return (
         <View style={styles.pageContainer}>
@@ -19,17 +24,36 @@ const RestaurantDetailsScreen = ({props}) => {
             <Ionicons name="arrow-back-circle"
                       size={50}
                       color="white"
+                      onPress={() => navigation.goBack()}
                       style={styles.backIconContainer}/>
 
             <View style={styles.restaurantInfo}>
                 <Text style={styles.title}>{restaurant.name}</Text>
-                <View style={styles.ratings}>
-                    <Text>{restaurant['rating']}</Text>
-                    <Text>(58)</Text>
+                <View style={styles.labelsContainer}>
+                    {/* RATINGS LABEL */}
+                    <View style={styles.ratings}>
+                        <FontAwesome name="star" size={20} color="yellow" />
+                        <Text>{restaurant['rating']} (58)</Text>
+                    </View>
+
+                    {/* QUANTITY AVAILABLE LABEL */}
+                    <View style={styles.quantity}>
+                        <SimpleLineIcons name="handbag" size={16} color="black" />
+                        <Text>{restaurant['boxes']['available']} &#8226; Left</Text>
+                    </View>
                 </View>
                 <Text style={styles.time}>Collect Between &#8226; 15:00 - 17:30</Text>
                 {/*<Text style={styles.subtitle}>Price Fee &#8226; ${restaurant['deliveryFee']}</Text>*/}
             </View>
+
+            <View style={styles.buttonContainer}>
+                <Pressable onPress={onReserve} style={styles.button}>
+                    <Text style={styles.buttonText}>
+                        Reserve
+                    </Text>
+                </Pressable>
+            </View>
+
 
         </View>
     );
@@ -38,6 +62,9 @@ const RestaurantDetailsScreen = ({props}) => {
 const styles = StyleSheet.create({
     pageContainer: {
         flex: 1
+    },
+    labelsContainer: {
+        flexDirection: "row"
     },
     restaurantInfo: {
         flexDirection: "column",
@@ -50,10 +77,10 @@ const styles = StyleSheet.create({
     },
     image: {
         width: "100%",
-        aspectRatio: 5/3
+        aspectRatio: 5 / 3
     },
     title: {
-        fontSize: 25,
+        fontSize: 24,
         fontWeight: "600",
         marginVertical: 10
     },
@@ -67,12 +94,41 @@ const styles = StyleSheet.create({
         marginRight: 5,
         marginTop: 7,
         backgroundColor: "lightgray",
-        width: 50,
-        height: 35,
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "space-evenly",
         borderRadius: 7,
-        flexDirection: "row"
+        flexDirection: "row",
+        width: 80,
+        height: 35,
+    },
+    quantity: {
+        marginTop: 7,
+        marginLeft: 5,
+        backgroundColor: "lightgray",
+        alignItems: "center",
+        justifyContent: "space-evenly",
+        borderRadius: 7,
+        flexDirection: "row",
+        width: 100,
+        height: 35,
+    },
+    buttonContainer: {
+        display: "flex",
+        alignItems: "center",
+        marginTop: "auto",
+        marginBottom: 35
+    },
+    button: {
+        backgroundColor: "black",
+        width: "80%",
+        padding: 15,
+        borderRadius: 5,
+        alignItems: "center",
+    },
+    buttonText: {
+        color: "white",
+        fontWeight: "600",
+        fontSize: 18,
     },
 });
 

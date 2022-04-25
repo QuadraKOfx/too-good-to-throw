@@ -1,0 +1,15 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-toogoodtothrow-staging-145943-authRole",
+      "UnauthRoleArn": "arn:aws:iam::902908825721:role/amplify-toogoodtothrow-staging-145943-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::902908825721:role/amplify-toogoodtothrow-staging-145943-authRole",
+      "Region": "eu-west-3",
+      "DeploymentBucketName": "amplify-toogoodtothrow-staging-145943-deployment",
+      "UnauthRoleName": "amplify-toogoodtothrow-staging-145943-unauthRole",
+      "StackName": "amplify-toogoodtothrow-staging-145943",
+      "StackId": "arn:aws:cloudformation:eu-west-3:902908825721:stack/amplify-toogoodtothrow-staging-145943/574c97f0-c4a8-11ec-a22e-0acfc4f386ac",
+      "AmplifyAppId": "dtb06jahwdo01"
+    }
+  }
+}

@@ -3,7 +3,6 @@ import restaurants from "../../../assets/data/restaurants.json";
 import RestaurantItem from "../../components/RestaurantItem";
 
 export default function HomeScreen({props}) {
-    console.info(props);
     return (
         <View style={styles.pageContainer}>
             <FlatList data={restaurants}
