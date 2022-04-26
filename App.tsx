@@ -1,39 +1,27 @@
-import {createNativeStackNavigator, NativeStackScreenProps} from "@react-navigation/native-stack";
-import {RootStackParamList} from "./src/utils/types";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {
+    FavoritesScreenTyped,
+    HomeScreenTyped,
+    ProfileScreenTyped,
+    RestaurantTyped,
+    SignInScreenTyped,
+    RootStackParamList,
+} from "./src/utils/types";
 import {NavigationContainer} from "@react-navigation/native";
 import {StatusBar} from "expo-status-bar";
-import HomeScreen from "./src/screens/HomeScreen";
-import RestaurantDetailsScreen from "./src/screens/RestaurantDetailsScreen";
-import React from "react";
+import React, {useEffect} from "react";
 import {createMaterialBottomTabNavigator} from "@react-navigation/material-bottom-tabs";
 import {Foundation, Ionicons, MaterialIcons} from "@expo/vector-icons";
-import ProfileScreen from "./src/screens/ProfileScreen";
-import FavoritesScreen from "./src/screens/FavoritesScreen";
-import {Amplify} from "aws-amplify";
-import {withAuthenticator} from "aws-amplify-react-native";
+import {Amplify, Auth} from "aws-amplify";
 import config from './src/aws-exports';
+import {AuthContextProvider} from "./src/contexts/AuthContext";
 
-Amplify.configure(config);
-
-type RestaurantScreenProps = NativeStackScreenProps<RootStackParamList, "RestaurantDetails">;
-const RestaurantTyped: React.FC<RestaurantScreenProps> = (props) => {
-    return (<RestaurantDetailsScreen props={props}/>);
-}
-
-type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
-const HomeScreenTyped: React.FC<HomeScreenProps> = (props) => {
-    return (<HomeScreen props={props}/>);
-}
-
-type ProfileScreenProps = NativeStackScreenProps<RootStackParamList, "Profile">;
-const ProfileScreenTyped: React.FC<ProfileScreenProps> = () => {
-    return (<ProfileScreen/>);
-}
-
-type FavoritesScreenProps = NativeStackScreenProps<RootStackParamList, "Favorites">;
-const FavoritesScreenTyped: React.FC<FavoritesScreenProps> = () => {
-    return (<FavoritesScreen/>);
-}
+Amplify.configure({
+    ...config,
+    Analytics: {
+        disabled: true
+    },
+});
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -47,7 +35,7 @@ const HomeTabs = () => {
             }}/>
             <Tab.Screen name="Favorites" component={FavoritesScreenTyped} options={{
                 tabBarIcon: ({color}) => <MaterialIcons name="favorite" size={24} color={color}/>
-            }}/>
+            }}></Tab.Screen>
             <Tab.Screen name="Profile" component={ProfileScreenTyped} options={{
                 tabBarIcon: ({color}) => <Ionicons name="ios-person" size={24} color={color}/>
             }}/>
@@ -56,6 +44,7 @@ const HomeTabs = () => {
 }
 
 const RootNavigator = () => {
+
     return (
         <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
             <Stack.Screen name="Home" component={HomeTabs}/>
@@ -63,6 +52,10 @@ const RootNavigator = () => {
                 name="RestaurantDetails"
                 options={{headerShown: false}}
                 component={RestaurantTyped}/>
+            <Stack.Screen
+                name="SignIn"
+                options={{headerShown: false}}
+                component={SignInScreenTyped}/>
         </Stack.Navigator>
     );
 }
@@ -70,10 +63,12 @@ const RootNavigator = () => {
 function App() {
     return (
         <NavigationContainer>
-            <RootNavigator/>
+            <AuthContextProvider>
+                <RootNavigator/>
+            </AuthContextProvider>
             <StatusBar style="auto"/>
         </NavigationContainer>
     );
 }
 
-export default withAuthenticator(App);
+export default App;

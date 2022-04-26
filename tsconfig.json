@@ -3,6 +3,6 @@
   "extends": "expo/tsconfig.base",
   "typeRoots": [
     "./types.check.tsx",
-    "./src/utils/types.ts"
+    "./src/utils/types.tsx"
   ]
 }
