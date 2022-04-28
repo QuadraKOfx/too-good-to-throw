@@ -2,7 +2,7 @@
   "providers": [
     "awscloudformation"
   ],
-  "projectName": "toogoodtothrow",
+  "projectName": "refoodit",
   "version": "3.1",
   "frontend": "javascript",
   "javascript": {

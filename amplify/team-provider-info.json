@@ -1,15 +1,20 @@
 {
   "staging": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-toogoodtothrow-staging-145943-authRole",
-      "UnauthRoleArn": "arn:aws:iam::902908825721:role/amplify-toogoodtothrow-staging-145943-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::902908825721:role/amplify-toogoodtothrow-staging-145943-authRole",
+      "AuthRoleName": "amplify-refoodit-staging-233704-authRole",
+      "UnauthRoleArn": "arn:aws:iam::902908825721:role/amplify-refoodit-staging-233704-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::902908825721:role/amplify-refoodit-staging-233704-authRole",
       "Region": "eu-west-3",
-      "DeploymentBucketName": "amplify-toogoodtothrow-staging-145943-deployment",
-      "UnauthRoleName": "amplify-toogoodtothrow-staging-145943-unauthRole",
-      "StackName": "amplify-toogoodtothrow-staging-145943",
-      "StackId": "arn:aws:cloudformation:eu-west-3:902908825721:stack/amplify-toogoodtothrow-staging-145943/574c97f0-c4a8-11ec-a22e-0acfc4f386ac",
-      "AmplifyAppId": "dtb06jahwdo01"
+      "DeploymentBucketName": "amplify-refoodit-staging-233704-deployment",
+      "UnauthRoleName": "amplify-refoodit-staging-233704-unauthRole",
+      "StackName": "amplify-refoodit-staging-233704",
+      "StackId": "arn:aws:cloudformation:eu-west-3:902908825721:stack/amplify-refoodit-staging-233704/f1a93890-c682-11ec-86f9-0ae608dc67a0",
+      "AmplifyAppId": "d3atvo5c3mxs7x"
+    },
+    "categories": {
+      "auth": {
+        "refoodit": {}
+      }
     }
   }
 }

@@ -5,14 +5,14 @@ import {
     ProfileScreenTyped,
     RestaurantTyped,
     SignInScreenTyped,
-    RootStackParamList,
+    RootStackParamList, SignUpScreenTyped, ConfirmScreenTyped,
 } from "./src/utils/types";
 import {NavigationContainer} from "@react-navigation/native";
 import {StatusBar} from "expo-status-bar";
-import React, {useEffect} from "react";
+import React from "react";
 import {createMaterialBottomTabNavigator} from "@react-navigation/material-bottom-tabs";
 import {Foundation, Ionicons, MaterialIcons} from "@expo/vector-icons";
-import {Amplify, Auth} from "aws-amplify";
+import {Amplify} from "aws-amplify";
 import config from './src/aws-exports';
 import {AuthContextProvider} from "./src/contexts/AuthContext";
 
@@ -44,7 +44,6 @@ const HomeTabs = () => {
 }
 
 const RootNavigator = () => {
-
     return (
         <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
             <Stack.Screen name="Home" component={HomeTabs}/>
@@ -53,9 +52,17 @@ const RootNavigator = () => {
                 options={{headerShown: false}}
                 component={RestaurantTyped}/>
             <Stack.Screen
+                name="ConfirmEmail"
+                options={{headerShown: false}}
+                component={ConfirmScreenTyped}/>
+            <Stack.Screen
                 name="SignIn"
                 options={{headerShown: false}}
                 component={SignInScreenTyped}/>
+            <Stack.Screen
+                name="SignUp"
+                options={{headerShown: false}}
+                component={SignUpScreenTyped}/>
         </Stack.Navigator>
     );
 }

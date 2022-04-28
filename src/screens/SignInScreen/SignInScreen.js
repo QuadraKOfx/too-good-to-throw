@@ -1,10 +1,10 @@
 import {Image, ScrollView, View, StyleSheet, useWindowDimensions, Alert} from "react-native";
 import {useForm} from 'react-hook-form';
 import Logo from '../../../assets/images/custom_logo.png';
-import {useState} from "react";
-import {Auth} from "aws-amplify";
+import {useContext, useEffect, useState} from "react";
 import CustomInput from "../../components/custom-input/CustomInput";
 import CustomButton from "../../components/custom-button/CustomButton";
+import {signInAuthUserWithEmailAndPassword} from "../../utils/dbAmplify";
 
 const SignInScreen = ({props}) => {
     const navigation = props.navigation;
@@ -23,12 +23,12 @@ const SignInScreen = ({props}) => {
         }
         setLoading(true);
         try {
-            await Auth.signIn(data.username, data.password);
+            await signInAuthUserWithEmailAndPassword(data.username, data.password);
+            navigation.navigate('Home', {screen: 'Explore'});
         } catch (e) {
             Alert.alert('Something went wrong ', e.message);
         }
         setLoading(false);
-        navigation.navigate('Home');
     };
 
     const onForgotPasswordPressed = () => {

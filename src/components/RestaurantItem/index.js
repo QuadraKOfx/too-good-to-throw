@@ -63,13 +63,13 @@ const styles = StyleSheet.create({
         fontWeight: "500",
     },
     restaurantInfo: {
-        padding: 5,
+        padding: 10
     },
     ratings: {
         marginLeft: "auto",
         marginBottom: "auto",
-        marginRight: 5,
-        marginTop: 10,
+        marginRight: 10,
+        marginTop: 15,
         backgroundColor: "lightgray",
         width: 35,
         height: 30,

@@ -3,8 +3,8 @@
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "toogoo2ebef101",
-    "userPoolName": "toogoodtothrow",
+    "resourceNameTruncated": "refood615b9bbc",
+    "userPoolName": "refoodit",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -25,17 +25,19 @@
       "Requires Uppercase"
     ],
     "requiredAttributes": [
-      "name"
+      "name",
+      "phone_number",
+      "email"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "toogoo2ebef101_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "refood615b9bbc_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "2ebef101",
-    "resourceName": "toogoodtothrow",
+    "sharedId": "615b9bbc",
+    "resourceName": "refoodit",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",
     "usernameAttributes": [

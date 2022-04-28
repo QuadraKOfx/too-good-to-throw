@@ -1,14 +1,9 @@
 import React from 'react';
-import {View, Text, TextInput, StyleSheet} from 'react-native';
 import {Controller} from 'react-hook-form';
+import {View, Text, TextInput, StyleSheet} from 'react-native';
 
-const CustomInput = ({
-                         control,
-                         name,
-                         rules,
-                         placeholder,
-                         secureTextEntry,
-                     }) => {
+const CustomInput = ({name, rules, placeholder, control, ref, type, secureTextEntry, onSubmitEditing}) => {
+
     return (
         <Controller
             control={control}
@@ -22,11 +17,13 @@ const CustomInput = ({
                             {borderColor: error ? 'red' : '#e8e8e8'},
                         ]}>
                         <TextInput
+                            keyboardType={type}
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
                             placeholder={placeholder}
                             style={styles.input}
+                            onSubmitEditing={onSubmitEditing}
                             secureTextEntry={secureTextEntry}
                         />
                     </View>
