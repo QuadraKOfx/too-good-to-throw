@@ -1,7 +1,7 @@
 import {Image, ScrollView, View, StyleSheet, useWindowDimensions, Alert} from "react-native";
 import {useForm} from 'react-hook-form';
 import Logo from '../../../assets/images/custom_logo.png';
-import {useContext, useEffect, useState} from "react";
+import {useState} from "react";
 import CustomInput from "../../components/custom-input/CustomInput";
 import CustomButton from "../../components/custom-button/CustomButton";
 import {signInAuthUserWithEmailAndPassword} from "../../utils/dbAmplify";
@@ -11,11 +11,7 @@ const SignInScreen = ({props}) => {
     const {height} = useWindowDimensions();
     const [loading, setLoading] = useState(false);
 
-    const {
-        control,
-        handleSubmit,
-        formState: {errors},
-    } = useForm();
+    const {control, handleSubmit} = useForm();
 
     const onSignInPressed = async data => {
         if (loading) {

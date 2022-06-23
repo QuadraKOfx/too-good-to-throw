@@ -2,7 +2,7 @@ import React from 'react';
 import {Controller} from 'react-hook-form';
 import {View, Text, TextInput, StyleSheet} from 'react-native';
 
-const CustomInput = ({name, rules, placeholder, control, ref, type, secureTextEntry, onSubmitEditing}) => {
+const CustomInput = ({name, rules, placeholder, control, type, secureTextEntry, onSubmitEditing, width}) => {
 
     return (
         <Controller
@@ -12,16 +12,14 @@ const CustomInput = ({name, rules, placeholder, control, ref, type, secureTextEn
             render={({field: {value, onChange, onBlur}, fieldState: {error}}) => (
                 <>
                     <View
-                        style={[
-                            styles.container,
-                            {borderColor: error ? 'red' : '#e8e8e8'},
-                        ]}>
+                        style={[styles.container, {borderColor: error ? 'red' : '#e8e8e8'}, styles[`width_${width}`]]}>
                         <TextInput
                             keyboardType={type}
                             value={value}
                             onChangeText={onChange}
                             onBlur={onBlur}
                             placeholder={placeholder}
+                            placeholderTextColor='grey'
                             style={styles.input}
                             onSubmitEditing={onSubmitEditing}
                             secureTextEntry={secureTextEntry}
@@ -39,14 +37,18 @@ const CustomInput = ({name, rules, placeholder, control, ref, type, secureTextEn
 const styles = StyleSheet.create({
     container: {
         backgroundColor: 'white',
-        width: '100%',
-
         borderColor: '#e8e8e8',
-        borderWidth: 1,
-        borderRadius: 5,
-
         paddingHorizontal: 10,
         marginVertical: 5,
+        width: "100%",
+        borderWidth: 1,
+        borderRadius: 5,
+    },
+    width_80: {
+        width: "80%"
+    },
+    width_50: {
+        width: "50%"
     },
     input: {
         padding: 14
