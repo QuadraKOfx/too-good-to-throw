@@ -1,6 +1,11 @@
-import {View, Text, Image, FlatList, StyleSheet, Pressable} from "react-native";
+import {View, Text, Image, StyleSheet, TouchableOpacity} from "react-native";
 import restaurants from "../../../assets/data/restaurants.json";
 import {FontAwesome, Ionicons, SimpleLineIcons} from "@expo/vector-icons";
+import {useCallback, useEffect, useRef, useState} from "react";
+import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
+import ApplePay from "../../components/apple-pay/ApplePay";
+import {fetchPublishableKey} from "../../../helpers";
+import PaymentGateway from "../../components/apple-pay/ApplePay";
 
 const restaurant = restaurants[0];
 
@@ -8,12 +13,15 @@ const RestaurantDetailsScreen = ({props}) => {
     const navigation = props.navigation;
     const route = props.route;
     const id = route.params?.id
+    const bottomSheetRef = useRef(null);
     console.info("Params => ", id);
 
-    const onReserve = (event) => {
-        event.preventDefault();
-        console.info("Proccessing Request Reservation");
-    }
+    const handleSheetChanges = useCallback((index) => {
+        bottomSheetRef.current?.snapToIndex(index);
+        console.info("snap to index >>>", index);
+    }, []);
+
+
 
     return (
         <View style={styles.pageContainer}>
@@ -47,12 +55,23 @@ const RestaurantDetailsScreen = ({props}) => {
             </View>
 
             <View style={styles.buttonContainer}>
-                <Pressable onPress={onReserve} style={styles.button}>
+                <TouchableOpacity onPress={() => handleSheetChanges(0)}
+                                  style={styles.button}>
                     <Text style={styles.buttonText}>
                         Reserve
                     </Text>
-                </Pressable>
+                </TouchableOpacity>
             </View>
+
+            <BottomSheet ref={bottomSheetRef}
+                         index={-1}
+                         enablePanDownToClose={true}
+                         snapPoints={["50%", "90%"]}>
+                <BottomSheetView style={{flex: 1, alignItems: 'center'}}>
+                    <Text>Welcome to your Payments</Text>
+                    <PaymentGateway />
+                </BottomSheetView>
+            </BottomSheet>
 
 
         </View>
@@ -130,6 +149,11 @@ const styles = StyleSheet.create({
         fontWeight: "600",
         fontSize: 18,
     },
+    bottomSheet: {
+        flex: 1,
+        padding: 24,
+        backgroundColor: 'grey'
+    }
 });
 
 export default RestaurantDetailsScreen;

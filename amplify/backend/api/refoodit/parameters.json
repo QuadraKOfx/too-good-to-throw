@@ -1,5 +1,0 @@
-{
-  "AppSyncApiName": "refoodit",
-  "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
-}

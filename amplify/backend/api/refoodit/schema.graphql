@@ -1,7 +1,0 @@
-type User @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  sub: String
-  name: String
-  phone_number: Int
-  username: String
-}

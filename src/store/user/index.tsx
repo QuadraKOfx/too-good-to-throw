@@ -23,6 +23,7 @@ const userSlice = createSlice({
         login(state, _action) {
             state.loading = true;
             state.error = false;
+            console.info(state);
         },
         logout(state, _action) {
             state.loading = true;

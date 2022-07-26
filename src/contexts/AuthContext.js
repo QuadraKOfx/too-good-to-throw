@@ -1,6 +1,3 @@
-import {onAuthChanged} from "../utils/dbAmplify";
-import {DataStore} from "aws-amplify";
-import {User} from "../models";
 import {createContext, useEffect, useState} from "react";
 
 export const AuthContext = createContext({});

@@ -10,6 +10,7 @@ import {BottomSheetModal} from '@gorhom/bottom-sheet';
 import ApplePay from "../../components/apple-pay/ApplePay";
 import {CustomBackground} from "../../utils/sheet-types";
 import customBackDrop from "../../components/custom-backdrop/CustomBackDrop";
+import PaymentGateway from "../../components/apple-pay/ApplePay";
 
 export default function HomeScreen({props}) {
     const [keyboardStatus, setKeyboardStatus] = useState(undefined);
@@ -57,7 +58,7 @@ export default function HomeScreen({props}) {
                 onChange={handleSheetChanges}
                 backdropComponent={customBackDrop}
                 backgroundComponent={CustomBackground}>
-                <ApplePay />
+                <PaymentGateway />
             </BottomSheetModal>
 
             <View style={styles.filterContainer}>

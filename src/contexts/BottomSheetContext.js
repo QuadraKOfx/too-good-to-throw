@@ -1,7 +1,7 @@
 import React, {createContext, useMemo, useRef, useState} from "react";
 import {BottomSheetModal, BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 import {CustomBackDropComponent, CustomBackground} from "../utils/sheet-types";
-import ApplePay from "../components/apple-pay/ApplePay";
+import PaymentGateway from "../components/apple-pay/ApplePay";
 
 export const SheetContext = createContext({});
 
@@ -16,7 +16,7 @@ export const BottomSheetContext = ({children}) => {
                 snapPoints={snapPoints}
                 backgroundComponent={CustomBackground}
                 backdropComponent={CustomBackDropComponent}>
-                <ApplePay />
+                <PaymentGateway />
             </BottomSheetModal>
         </BottomSheetModalProvider>
     );

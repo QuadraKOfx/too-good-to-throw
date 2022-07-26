@@ -4,10 +4,13 @@ import Logo from '../../../assets/images/custom_logo.png';
 import {useState} from "react";
 import CustomInput from "../../components/custom-input/CustomInput";
 import CustomButton from "../../components/custom-button/CustomButton";
-import {signInAuthUserWithEmailAndPassword} from "../../utils/dbAmplify";
+// import {signInAuthUserWithEmailAndPassword} from "../../utils/dbAmplify";
+import {useDispatch} from "react-redux";
+import {actions} from "../../store/user";
 
 const SignInScreen = ({props}) => {
     const navigation = props.navigation;
+    const dispatch = useDispatch();
     const {height} = useWindowDimensions();
     const [loading, setLoading] = useState(false);
 
@@ -18,12 +21,13 @@ const SignInScreen = ({props}) => {
             return;
         }
         setLoading(true);
-        try {
-            await signInAuthUserWithEmailAndPassword(data.username, data.password);
-            navigation.navigate('Home', {screen: 'Explore'});
-        } catch (e) {
-            Alert.alert('Something went wrong ', e.message);
-        }
+        dispatch(actions.login(data));
+        // try {
+        //     await signInAuthUserWithEmailAndPassword(data.username, data.password);
+        //     navigation.navigate('Home', {screen: 'Explore'});
+        // } catch (e) {
+        //     Alert.alert('Something went wrong ', e.message);
+        // }
         setLoading(false);
     };
 
