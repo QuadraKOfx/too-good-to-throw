@@ -130,6 +130,7 @@ shellAppWorkspaces
 .env.development.local
 .env.test.local
 .env.production.local
+.evn.development
 apps/bare-expo/deploy-url.txt
 
 # Expo Doc merging
