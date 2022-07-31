@@ -16,7 +16,6 @@ export const BottomSheetContext = ({children}) => {
                 snapPoints={snapPoints}
                 backgroundComponent={CustomBackground}
                 backdropComponent={CustomBackDropComponent}>
-                <PaymentGateway />
             </BottomSheetModal>
         </BottomSheetModalProvider>
     );

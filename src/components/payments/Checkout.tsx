@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
-import {StyleSheet, View, Text, Alert, TextInput} from "react-native";
+import React, {useState} from "react";
+import {StyleSheet, View, Text, TouchableWithoutFeedback, Keyboard} from "react-native";
 import {TouchableOpacity} from "react-native-gesture-handler";
-import {CardField, useConfirmPayment} from "@stripe/stripe-react-native";
-import {API_NEST_URL, API_URL} from "../../../Config";
-import {useStripe} from "@stripe/react-stripe-js";
+import {API_HOST_URL, API_NEST_URL, API_URL} from "../../../Config";
+import CCardForm from "./form/form-index";
+import CustomButton from "../custom-button/CustomButton";
 
 const DUMMY_PAYLOAD = {
-    "products":[{
+    "products": [{
         "id": "1",
         "price": 10.00,
         "title": "test",
@@ -15,51 +15,44 @@ const DUMMY_PAYLOAD = {
     "currency": "EUR"
 }
 
-const PaymentGateway = () => {
-    // const stripePromise = loadStripe('pk_test_51LGtv6BViwENwDkq7FuAxGsRSB59AwF9jtKVQL2hpDGFhMHo3KAH4rQkvOiyjQq0UWHYX6AhZCDOByblPHmbptov00g4Oxq6c3');
-    return (
-        // <Elements stripe={stripePromise}>
-        //     <ApplePay/>
-        // </Elements>
-        <div></div>
-    );
-};
+const HideKeyboard = ({children}) => (
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        {children}
+    </TouchableWithoutFeedback>
+);
 
-const ApplePay = () => {
-    const [name, setName] = useState('');
-    const {confirmPayment, loading} = useConfirmPayment();
+export default function Checkout() {
 
-    const testApi = async () => {
-        await fetch(`${API_NEST_URL}api/payments/test`).then(res => {
-            console.info(res);
-        })
-    }
+    const [isLoading, setLoading] = useState<boolean>(false);
 
     const handlePayPress = async () => {
-        console.info(DUMMY_PAYLOAD);
+        setLoading(true);
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(DUMMY_PAYLOAD)
         };
         try {
             await fetch(`${API_NEST_URL}api/payments/createPayment`, requestOptions).then(async res => {
-                const _res = await res.text();
-                alert(_res);
+                const _res = await res.json();
+                handleResponse(_res);
             })
         } catch (error) {
-            alert(`${API_NEST_URL}api/payments/createPayment`);
             console.info(`${API_NEST_URL}api/payments/createPayment`);
             console.info("Something went wrong => ", error);
         }
     }
 
-    useEffect(() => {
-        testApi().catch();
-    }, []);
+    const handleResponse = (response) => {
+        // const isSuccess = response.status;
+        if(response.status === 'succeeded') {
+            setLoading(false);
+        }
+    }
 
     return (
-        <View style={style.container}>
+
+        <View style={!isLoading ? style.normal : style.blurPayment}>
             <View style={style.appInfo}>
                 {/*<Image style={style.image} source={require("../../assets/rocketsIcon.png")} />*/}
                 <View>
@@ -74,35 +67,43 @@ const ApplePay = () => {
                 <Text style={[style.text]}> quadrako93@gmail.com</Text>
             </Text>
             <View style={style.separator}></View>
-            <View style={style.payment_card}>
-                {/*<TextInput*/}
-                {/*    autoCapitalize="none"*/}
-                {/*    placeholder="Name"*/}
-                {/*    keyboardType="name-phone-pad"*/}
-                {/*    onChange={(value) => setName(value.nativeEvent.text)}*/}
-                {/*    style={style.input}/>*/}
-                <CardField
-                    style={style.cardField}
-                    postalCodeEnabled={false}
-                    cardStyle={{
-                        borderColor: '#000000',
-                        borderWidth: 1,
-                        borderRadius: 8
-                    }}
-                />
-            </View>
+
+            <CCardForm isLoading={isLoading}/>
             <View style={style.separator}></View>
-            <TouchableOpacity onPress={handlePayPress} disabled={loading}>
-                <View style={style.confirmButton}><Text style={{color: '#fff', fontSize: 30}}>💸</Text></View>
+            <TouchableOpacity onPress={handlePayPress} style={style.buttonContainer}>
+                <CustomButton text={isLoading ? 'Loading...' : 'PAY NOW'}
+                              bgColor={'black'} fgColor={'white'}
+                              onPress={() => {}}/>
             </TouchableOpacity>
         </View>
+
     );
 }
 
-export default PaymentGateway;
-
 const style = StyleSheet.create({
-    payment_card: {},
+    normal: {
+        width: '90%',
+        height: '100%',
+        marginHorizontal: 5,
+        marginVertical: 20,
+    },
+    blurPayment: {
+        width: '90%',
+        height: '100%',
+        marginHorizontal: 5,
+        marginVertical: 20,
+    },
+    buttonContainer: {
+      marginTop: 10
+    },
+    cardForm: {
+        height: '30%',
+        borderRadius: 6,
+        marginTop: 40,
+    },
+    payment_card: {
+        height: '100%'
+    },
     cardField: {
         width: '100%',
         height: 50,
@@ -115,8 +116,9 @@ const style = StyleSheet.create({
     },
     container: {
         width: '90%',
+        height: '100%',
         marginHorizontal: 5,
-        marginVertical: 20
+        marginVertical: 20,
     },
     title: {
         fontSize: 20,
@@ -135,7 +137,7 @@ const style = StyleSheet.create({
     },
     appInfo: {
         flexDirection: "row",
-        marginLeft: '10%',
+        marginLeft: 15,
         alignItems: "center",
         marginBottom: 20,
     },

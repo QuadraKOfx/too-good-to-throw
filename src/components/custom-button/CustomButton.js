@@ -44,6 +44,9 @@ const styles = StyleSheet.create({
         backgroundColor: "lightblue",
         flex: 1
     },
+    container_CHECKOUT: {
+
+    },
     container_TERTIARY: {},
 
     text: {

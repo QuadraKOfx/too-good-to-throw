@@ -58,7 +58,6 @@ export default function HomeScreen({props}) {
                 onChange={handleSheetChanges}
                 backdropComponent={customBackDrop}
                 backgroundComponent={CustomBackground}>
-                <PaymentGateway />
             </BottomSheetModal>
 
             <View style={styles.filterContainer}>

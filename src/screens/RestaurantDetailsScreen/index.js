@@ -1,11 +1,9 @@
-import {View, Text, Image, StyleSheet, TouchableOpacity} from "react-native";
+import {View, Text, Image, StyleSheet, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard} from "react-native";
 import restaurants from "../../../assets/data/restaurants.json";
 import {FontAwesome, Ionicons, SimpleLineIcons} from "@expo/vector-icons";
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
-import ApplePay from "../../components/apple-pay/ApplePay";
-import {fetchPublishableKey} from "../../../helpers";
-import PaymentGateway from "../../components/apple-pay/ApplePay";
+import Checkout from "../../components/payments/Checkout";
 
 const restaurant = restaurants[0];
 
@@ -13,15 +11,15 @@ const RestaurantDetailsScreen = ({props}) => {
     const navigation = props.navigation;
     const route = props.route;
     const id = route.params?.id
-    const bottomSheetRef = useRef(null);
-    console.info("Params => ", id);
 
-    const handleSheetChanges = useCallback((index) => {
+    const bottomSheetRef = useRef(null);
+    const [loading, setLoading] = useState(false);
+
+    const openPaymentSheet = (index) => {
+        // open payment bottom sheet
         bottomSheetRef.current?.snapToIndex(index);
         console.info("snap to index >>>", index);
-    }, []);
-
-
+    };
 
     return (
         <View style={styles.pageContainer}>
@@ -40,13 +38,13 @@ const RestaurantDetailsScreen = ({props}) => {
                 <View style={styles.labelsContainer}>
                     {/* RATINGS LABEL */}
                     <View style={styles.ratings}>
-                        <FontAwesome name="star" size={20} color="yellow" />
+                        <FontAwesome name="star" size={20} color="yellow"/>
                         <Text>{restaurant['rating']} (58)</Text>
                     </View>
 
                     {/* QUANTITY AVAILABLE LABEL */}
                     <View style={styles.quantity}>
-                        <SimpleLineIcons name="handbag" size={16} color="black" />
+                        <SimpleLineIcons name="handbag" size={16} color="black"/>
                         <Text>{restaurant['boxes']['available']} &#8226; Left</Text>
                     </View>
                 </View>
@@ -55,8 +53,10 @@ const RestaurantDetailsScreen = ({props}) => {
             </View>
 
             <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => handleSheetChanges(0)}
-                                  style={styles.button}>
+                <TouchableOpacity
+                    style={styles.button}
+                    title="Checkout"
+                    onPress={() => openPaymentSheet(0)}>
                     <Text style={styles.buttonText}>
                         Reserve
                     </Text>
@@ -66,10 +66,9 @@ const RestaurantDetailsScreen = ({props}) => {
             <BottomSheet ref={bottomSheetRef}
                          index={-1}
                          enablePanDownToClose={true}
-                         snapPoints={["50%", "90%"]}>
+                         snapPoints={["85%"]}>
                 <BottomSheetView style={{flex: 1, alignItems: 'center'}}>
-                    <Text>Welcome to your Payments</Text>
-                    <PaymentGateway />
+                    <Checkout />
                 </BottomSheetView>
             </BottomSheet>
 

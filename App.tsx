@@ -9,39 +9,25 @@ import { StripeProvider as _StripeProvider } from '@stripe/stripe-react-native';
 import type { Props as StripeProviderProps } from '@stripe/stripe-react-native/lib/typescript/src/components/StripeProvider';
 
 // Stripe Dependencies
-import {_fetchPublishableKey, fetchPublishableKey} from "./helpers";
+import {_fetchPublishableKey} from "./helpers";
+import {Elements} from "@stripe/react-stripe-js";
 const StripeProvider = _StripeProvider as React.FC<StripeProviderProps>;
+
 
 function App() {
     const [publishableKey, setPublishableKey] = useState('');
     const [_publishableKey, _setPublishableKey] = useState('');
 
-    {/* fetch publishableKey */}
-    useEffect(() =>{
-        async function init() {
-            const publishableKey = await fetchPublishableKey();
-            if(publishableKey) {
-                setPublishableKey(publishableKey);
-            }
-        }
-        init().catch();
-    }, []);
+    const options = {
+        // passing the client secret obtained from the server
+        clientSecret: process.env.NEXT_PUBLIC_STRIPE_KEY,
+    };
 
-    {/* fetch ipAddress (device)
-        for Stripe implementation */}
-    useEffect(() =>{
-        async function init() {
-            const _publishableKey = await _fetchPublishableKey();
-            if(_publishableKey) {
-                setPublishableKey(_publishableKey);
-            }
-        }
-        init().catch();
-    }, []);
+
     return (
         <Provider store={store}>
             <NavigationContainer>
-                <StripeProvider publishableKey={publishableKey} >
+                <StripeProvider publishableKey={publishableKey}>
                     <BottomSheetModalProvider>
                         <RootNavigator/>
                     </BottomSheetModalProvider>

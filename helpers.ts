@@ -1,6 +1,6 @@
 import * as Network from 'expo-network';
 
-export async function _fetchPublishableKey() {
+export async function _fetchPublishableKey(): Promise<any> {
     try {
         // const response = await fetch(`${API_URL}config`);
         // const {publishableKey} = await response.json();
@@ -11,6 +11,3 @@ export async function _fetchPublishableKey() {
     }
 }
 
-export async function fetchPublishableKey() {
-    return process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-}
